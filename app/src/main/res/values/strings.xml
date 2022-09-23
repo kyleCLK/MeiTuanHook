@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MeiTuanHook</string>
+    <string name="label_in_manifest">美团Hoo服务k</string>
+    <string name="description_in_manifest">Description in manifest</string>
+    <string name="description_in_xml">这是一个关于美团众包的自动化抢单服务</string>
+</resources>

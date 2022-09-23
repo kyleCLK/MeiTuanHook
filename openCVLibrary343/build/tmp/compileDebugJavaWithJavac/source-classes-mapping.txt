@@ -1,0 +1,299 @@
+org/opencv/videoio/Videoio.java
+ org.opencv.videoio.Videoio
+org/opencv/objdetect/BaseCascadeClassifier.java
+ org.opencv.objdetect.BaseCascadeClassifier
+org/opencv/objdetect/HOGDescriptor.java
+ org.opencv.objdetect.HOGDescriptor
+org/opencv/android/OpenCVLoader.java
+ org.opencv.android.OpenCVLoader
+org/opencv/core/MatOfPoint3.java
+ org.opencv.core.MatOfPoint3
+org/opencv/photo/AlignMTB.java
+ org.opencv.photo.AlignMTB
+org/opencv/android/JavaCamera2View.java
+ org.opencv.android.JavaCamera2View
+ org.opencv.android.JavaCamera2View$1
+ org.opencv.android.JavaCamera2View$2
+ org.opencv.android.JavaCamera2View$3
+ org.opencv.android.JavaCamera2View$JavaCamera2Frame
+org/opencv/core/MatOfByte.java
+ org.opencv.core.MatOfByte
+org/opencv/features2d/MSER.java
+ org.opencv.features2d.MSER
+org/opencv/ml/TrainData.java
+ org.opencv.ml.TrainData
+org/opencv/features2d/FeatureDetector.java
+ org.opencv.features2d.FeatureDetector
+org/opencv/core/CvType.java
+ org.opencv.core.CvType
+org/opencv/objdetect/CascadeClassifier.java
+ org.opencv.objdetect.CascadeClassifier
+org/opencv/core/MatOfInt.java
+ org.opencv.core.MatOfInt
+org/opencv/video/BackgroundSubtractorMOG2.java
+ org.opencv.video.BackgroundSubtractorMOG2
+org/opencv/core/Rect2d.java
+ org.opencv.core.Rect2d
+org/opencv/core/MatOfKeyPoint.java
+ org.opencv.core.MatOfKeyPoint
+org/opencv/calib3d/StereoBM.java
+ org.opencv.calib3d.StereoBM
+org/opencv/video/KalmanFilter.java
+ org.opencv.video.KalmanFilter
+org/opencv/core/RotatedRect.java
+ org.opencv.core.RotatedRect
+org/opencv/features2d/FlannBasedMatcher.java
+ org.opencv.features2d.FlannBasedMatcher
+org/opencv/ml/Boost.java
+ org.opencv.ml.Boost
+org/opencv/videoio/VideoWriter.java
+ org.opencv.videoio.VideoWriter
+org/opencv/features2d/Feature2D.java
+ org.opencv.features2d.Feature2D
+org/opencv/photo/MergeDebevec.java
+ org.opencv.photo.MergeDebevec
+org/opencv/android/CameraGLSurfaceView.java
+ org.opencv.android.CameraGLSurfaceView
+ org.opencv.android.CameraGLSurfaceView$CameraTextureListener
+org/opencv/core/Range.java
+ org.opencv.core.Range
+org/opencv/features2d/BOWKMeansTrainer.java
+ org.opencv.features2d.BOWKMeansTrainer
+org/opencv/ml/ParamGrid.java
+ org.opencv.ml.ParamGrid
+org/opencv/features2d/Features2d.java
+ org.opencv.features2d.Features2d
+org/opencv/features2d/KAZE.java
+ org.opencv.features2d.KAZE
+org/opencv/imgproc/Imgproc.java
+ org.opencv.imgproc.Imgproc
+org/opencv/core/Core.java
+ org.opencv.core.Core
+ org.opencv.core.Core$MinMaxLocResult
+org/opencv/core/CvException.java
+ org.opencv.core.CvException
+org/opencv/features2d/AgastFeatureDetector.java
+ org.opencv.features2d.AgastFeatureDetector
+org/opencv/video/Video.java
+ org.opencv.video.Video
+org/opencv/engine/OpenCVEngineInterface.java
+ org.opencv.engine.OpenCVEngineInterface
+ org.opencv.engine.OpenCVEngineInterface$Default
+ org.opencv.engine.OpenCVEngineInterface$Stub
+ org.opencv.engine.OpenCVEngineInterface$Stub$Proxy
+org/opencv/videoio/VideoCapture.java
+ org.opencv.videoio.VideoCapture
+org/opencv/video/FarnebackOpticalFlow.java
+ org.opencv.video.FarnebackOpticalFlow
+org/opencv/features2d/ORB.java
+ org.opencv.features2d.ORB
+org/opencv/dnn/Layer.java
+ org.opencv.dnn.Layer
+org/opencv/osgi/OpenCVInterface.java
+ org.opencv.osgi.OpenCVInterface
+org/opencv/android/StaticHelper.java
+ org.opencv.android.StaticHelper
+org/opencv/dnn/DictValue.java
+ org.opencv.dnn.DictValue
+org/opencv/core/MatOfFloat6.java
+ org.opencv.core.MatOfFloat6
+org/opencv/ml/DTrees.java
+ org.opencv.ml.DTrees
+org/opencv/core/MatOfPoint3f.java
+ org.opencv.core.MatOfPoint3f
+org/opencv/ml/SVMSGD.java
+ org.opencv.ml.SVMSGD
+org/opencv/calib3d/StereoSGBM.java
+ org.opencv.calib3d.StereoSGBM
+org/opencv/imgcodecs/Imgcodecs.java
+ org.opencv.imgcodecs.Imgcodecs
+org/opencv/core/MatOfRect2d.java
+ org.opencv.core.MatOfRect2d
+org/opencv/video/BackgroundSubtractor.java
+ org.opencv.video.BackgroundSubtractor
+org/opencv/android/LoaderCallbackInterface.java
+ org.opencv.android.LoaderCallbackInterface
+org/opencv/objdetect/Objdetect.java
+ org.opencv.objdetect.Objdetect
+org/opencv/photo/CalibrateRobertson.java
+ org.opencv.photo.CalibrateRobertson
+org/opencv/photo/MergeExposures.java
+ org.opencv.photo.MergeExposures
+org/opencv/ml/Ml.java
+ org.opencv.ml.Ml
+org/opencv/core/MatOfRect.java
+ org.opencv.core.MatOfRect
+org/opencv/core/MatOfInt4.java
+ org.opencv.core.MatOfInt4
+org/opencv/photo/CalibrateDebevec.java
+ org.opencv.photo.CalibrateDebevec
+org/opencv/photo/TonemapMantiuk.java
+ org.opencv.photo.TonemapMantiuk
+org/opencv/photo/AlignExposures.java
+ org.opencv.photo.AlignExposures
+org/opencv/core/MatOfPoint2f.java
+ org.opencv.core.MatOfPoint2f
+org/opencv/core/DMatch.java
+ org.opencv.core.DMatch
+org/opencv/core/TermCriteria.java
+ org.opencv.core.TermCriteria
+org/opencv/imgproc/Moments.java
+ org.opencv.imgproc.Moments
+org/opencv/features2d/BRISK.java
+ org.opencv.features2d.BRISK
+org/opencv/android/Camera2Renderer.java
+ org.opencv.android.Camera2Renderer
+ org.opencv.android.Camera2Renderer$1
+ org.opencv.android.Camera2Renderer$2
+org/opencv/android/CameraRenderer.java
+ org.opencv.android.CameraRenderer
+org/opencv/core/MatOfPoint.java
+ org.opencv.core.MatOfPoint
+org/opencv/core/MatOfDouble.java
+ org.opencv.core.MatOfDouble
+org/opencv/core/Mat.java
+ org.opencv.core.Mat
+org/opencv/android/JavaCameraView.java
+ org.opencv.android.JavaCameraView
+ org.opencv.android.JavaCameraView$1
+ org.opencv.android.JavaCameraView$CameraWorker
+ org.opencv.android.JavaCameraView$JavaCameraFrame
+ org.opencv.android.JavaCameraView$JavaCameraSizeAccessor
+org/opencv/core/Algorithm.java
+ org.opencv.core.Algorithm
+org/opencv/ml/ANN_MLP.java
+ org.opencv.ml.ANN_MLP
+org/opencv/ml/EM.java
+ org.opencv.ml.EM
+org/opencv/osgi/OpenCVNativeLoader.java
+ org.opencv.osgi.OpenCVNativeLoader
+org/opencv/photo/MergeRobertson.java
+ org.opencv.photo.MergeRobertson
+org/opencv/core/MatOfRotatedRect.java
+ org.opencv.core.MatOfRotatedRect
+org/opencv/video/DenseOpticalFlow.java
+ org.opencv.video.DenseOpticalFlow
+org/opencv/android/Utils.java
+ org.opencv.android.Utils
+org/opencv/android/CameraBridgeViewBase.java
+ org.opencv.android.CameraBridgeViewBase
+ org.opencv.android.CameraBridgeViewBase$1
+ org.opencv.android.CameraBridgeViewBase$CvCameraViewFrame
+ org.opencv.android.CameraBridgeViewBase$CvCameraViewListener
+ org.opencv.android.CameraBridgeViewBase$CvCameraViewListener2
+ org.opencv.android.CameraBridgeViewBase$CvCameraViewListenerAdapter
+ org.opencv.android.CameraBridgeViewBase$ListItemAccessor
+org/opencv/core/Size.java
+ org.opencv.core.Size
+org/opencv/BuildConfig.java
+ org.opencv.BuildConfig
+org/opencv/android/FpsMeter.java
+ org.opencv.android.FpsMeter
+org/opencv/ml/KNearest.java
+ org.opencv.ml.KNearest
+org/opencv/ml/RTrees.java
+ org.opencv.ml.RTrees
+org/opencv/features2d/BOWTrainer.java
+ org.opencv.features2d.BOWTrainer
+org/opencv/android/BaseLoaderCallback.java
+ org.opencv.android.BaseLoaderCallback
+ org.opencv.android.BaseLoaderCallback$1
+ org.opencv.android.BaseLoaderCallback$2
+ org.opencv.android.BaseLoaderCallback$3
+ org.opencv.android.BaseLoaderCallback$4
+ org.opencv.android.BaseLoaderCallback$5
+ org.opencv.android.BaseLoaderCallback$6
+ org.opencv.android.BaseLoaderCallback$7
+org/opencv/features2d/BFMatcher.java
+ org.opencv.features2d.BFMatcher
+org/opencv/imgproc/CLAHE.java
+ org.opencv.imgproc.CLAHE
+org/opencv/imgproc/LineSegmentDetector.java
+ org.opencv.imgproc.LineSegmentDetector
+org/opencv/photo/TonemapDrago.java
+ org.opencv.photo.TonemapDrago
+org/opencv/features2d/AKAZE.java
+ org.opencv.features2d.AKAZE
+org/opencv/photo/TonemapReinhard.java
+ org.opencv.photo.TonemapReinhard
+org/opencv/features2d/DescriptorExtractor.java
+ org.opencv.features2d.DescriptorExtractor
+org/opencv/video/BackgroundSubtractorKNN.java
+ org.opencv.video.BackgroundSubtractorKNN
+org/opencv/photo/MergeMertens.java
+ org.opencv.photo.MergeMertens
+org/opencv/features2d/DescriptorMatcher.java
+ org.opencv.features2d.DescriptorMatcher
+org/opencv/video/SparseOpticalFlow.java
+ org.opencv.video.SparseOpticalFlow
+org/opencv/android/AsyncServiceHelper.java
+ org.opencv.android.AsyncServiceHelper
+ org.opencv.android.AsyncServiceHelper$1
+ org.opencv.android.AsyncServiceHelper$2
+ org.opencv.android.AsyncServiceHelper$3
+ org.opencv.android.AsyncServiceHelper$3$1
+ org.opencv.android.AsyncServiceHelper$3$2
+org/opencv/core/Rect.java
+ org.opencv.core.Rect
+org/opencv/ml/LogisticRegression.java
+ org.opencv.ml.LogisticRegression
+org/opencv/core/MatOfFloat.java
+ org.opencv.core.MatOfFloat
+org/opencv/core/Scalar.java
+ org.opencv.core.Scalar
+org/opencv/features2d/FastFeatureDetector.java
+ org.opencv.features2d.FastFeatureDetector
+org/opencv/features2d/Params.java
+ org.opencv.features2d.Params
+org/opencv/ml/NormalBayesClassifier.java
+ org.opencv.ml.NormalBayesClassifier
+org/opencv/features2d/GFTTDetector.java
+ org.opencv.features2d.GFTTDetector
+org/opencv/android/CameraGLRendererBase.java
+ org.opencv.android.CameraGLRendererBase
+org/opencv/core/Point3.java
+ org.opencv.core.Point3
+org/opencv/dnn/Net.java
+ org.opencv.dnn.Net
+org/opencv/photo/Photo.java
+ org.opencv.photo.Photo
+org/opencv/ml/ANN_MLP_ANNEAL.java
+ org.opencv.ml.ANN_MLP_ANNEAL
+org/opencv/photo/TonemapDurand.java
+ org.opencv.photo.TonemapDurand
+org/opencv/video/SparsePyrLKOpticalFlow.java
+ org.opencv.video.SparsePyrLKOpticalFlow
+org/opencv/core/MatOfFloat4.java
+ org.opencv.core.MatOfFloat4
+org/opencv/imgproc/Subdiv2D.java
+ org.opencv.imgproc.Subdiv2D
+org/opencv/photo/CalibrateCRF.java
+ org.opencv.photo.CalibrateCRF
+org/opencv/core/TickMeter.java
+ org.opencv.core.TickMeter
+org/opencv/features2d/BOWImgDescriptorExtractor.java
+ org.opencv.features2d.BOWImgDescriptorExtractor
+org/opencv/android/InstallCallbackInterface.java
+ org.opencv.android.InstallCallbackInterface
+org/opencv/calib3d/Calib3d.java
+ org.opencv.calib3d.Calib3d
+org/opencv/core/MatOfDMatch.java
+ org.opencv.core.MatOfDMatch
+org/opencv/video/DualTVL1OpticalFlow.java
+ org.opencv.video.DualTVL1OpticalFlow
+org/opencv/calib3d/StereoMatcher.java
+ org.opencv.calib3d.StereoMatcher
+org/opencv/dnn/Dnn.java
+ org.opencv.dnn.Dnn
+org/opencv/core/KeyPoint.java
+ org.opencv.core.KeyPoint
+org/opencv/photo/Tonemap.java
+ org.opencv.photo.Tonemap
+org/opencv/core/Point.java
+ org.opencv.core.Point
+org/opencv/ml/StatModel.java
+ org.opencv.ml.StatModel
+org/opencv/utils/Converters.java
+ org.opencv.utils.Converters
+org/opencv/ml/SVM.java
+ org.opencv.ml.SVM

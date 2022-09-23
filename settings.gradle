@@ -1,0 +1,3 @@
+include ':app'
+include ':openCVLibrary343'
+rootProject.name = "MeiTuanHook"
