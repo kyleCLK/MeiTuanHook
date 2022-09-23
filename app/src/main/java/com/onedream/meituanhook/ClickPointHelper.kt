@@ -4,5 +4,4 @@ import android.graphics.Rect
 
 object ClickPointHelper {
     var testClickRect :Rect? = null
-
 }

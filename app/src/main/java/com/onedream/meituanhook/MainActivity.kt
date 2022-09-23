@@ -3,7 +3,9 @@ package com.onedream.meituanhook
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.projection.MediaProjectionManager
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -38,10 +40,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //
         findViewById<Button>(R.id.btn_jump_to_settings).setOnClickListener {
-            this.jumpToAccessibilitySetting()
+            if(isHasCaptureScreenPermission()){
+                this.jumpToAccessibilitySetting()
+            }
         }
         findViewById<TextView>(R.id.btn_test).setOnClickListener {
             Toast.makeText(this, "I'm clicked", Toast.LENGTH_SHORT).show()
+            CaptureScreenService.start(this)
         }
 
 
@@ -64,13 +69,13 @@ class MainActivity : AppCompatActivity() {
             val target = Mat(bit2.height, bit2.width, CvType.CV_32FC1)
             Utils.bitmapToMat(bit2, target)
             //
-            ImageHelper.matching(
+            ClickPointHelper.testClickRect = ImageHelper.singleMatching(
                 source,
                 target,
                 0.8f,
-                getExternalFilesDir("").toString() + "/result.jpg"
+                Environment.getExternalStorageDirectory().path + "/Pictures/result.jpg"
             )
-            Log.e("ATU", "路径为" + getExternalFilesDir("") + "/result.jpg")
+            Log.e("ATU", "路径为" +  Environment.getExternalStorageDirectory().path + "/Pictures/result.jpg")
             /* Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY);
                     Utils.matToBitmap(src, bitmap);
                     runOnUiThread(new Runnable() {
@@ -83,6 +88,22 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+
+    private fun isHasCaptureScreenPermission(): Boolean {
+        val mMediaProjectionManager =
+            application.getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+        CaptureScreenService.setMediaProjectionManager(mMediaProjectionManager)
+        return if (CaptureScreenService.getIntent() != null && CaptureScreenService.getResult() !== 0) {
+            true
+        } else {
+            startActivityForResult(
+                mMediaProjectionManager.createScreenCaptureIntent(),
+                20001
+            )
+            CaptureScreenService.setMediaProjectionManager(mMediaProjectionManager)
+            false
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //用户操作完成，结果码返回是-1，即RESULT_OK
@@ -107,9 +128,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        } else {
-            //操作错误或没有选择图片
-            Log.i("MainActivtiy", "operation error")
+        }
+
+        if (requestCode == 20001 && resultCode == RESULT_OK && data != null) {
+            CaptureScreenService.setResult(resultCode)
+            CaptureScreenService.setIntent(data)
+            //
+            this.jumpToAccessibilitySetting()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

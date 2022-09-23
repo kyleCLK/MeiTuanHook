@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.onedream.meituanhook">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,6 +34,8 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_config"/>
         </service>
+
+        <service android:name=".CaptureScreenService"/>
     </application>
 
 </manifest>

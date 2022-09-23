@@ -14,6 +14,35 @@ import org.opencv.imgproc.Imgproc;
 
 public class ImageHelper {
 
+    public static Rect singleMatching(Mat source, Mat target, float matching, String fileName) {
+        //模板图片
+        Mat clone = target.clone();
+        if (source.empty() || target.empty()) {
+            Log.e(">>>>", "资源为null");
+            return null;
+        }
+        int templatW, templatH, resultH, resultW;
+        templatW = source.width();
+        templatH = source.height();
+        resultH = target.rows() - source.rows() + 1;
+        resultW = target.cols() - source.cols() + 1;
+        //匹配结果的大小
+        Mat result = new Mat(new Size(resultH, resultW), CvType.CV_32FC1);
+        //是标准相关性系数匹配  值越大越匹配
+        Imgproc.matchTemplate(clone, source, result, Imgproc.TM_CCOEFF_NORMED);
+        //匹配结果，最小到最大
+        Core.MinMaxLocResult mmr = Core.minMaxLoc(result);
+        if (mmr.maxVal > matching) {
+            //在原图上的对应模板可能位置画一个绿色矩形
+            Imgproc.rectangle(target, mmr.maxLoc, new Point(mmr.maxLoc.x + templatW, mmr.maxLoc.y + templatH), new Scalar(0, 255, 0), 2);
+            Log.e(">>>>", "匹配的值：" + mmr.maxVal + "   ------坐标：" + mmr.maxLoc.x + "," + mmr.maxLoc.y);
+            //
+            return new Rect((int) mmr.maxLoc.x, (int) mmr.maxLoc.y, (int) mmr.maxLoc.x + templatW, (int) mmr.maxLoc.y + templatH);
+        }
+        return null;
+    }
+
+
     /**
      * 匹配模板图片， 图片须时jpg格式的，否则会出异常
      *
