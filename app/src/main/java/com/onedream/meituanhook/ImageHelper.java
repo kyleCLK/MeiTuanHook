@@ -37,6 +37,8 @@ public class ImageHelper {
             Imgproc.rectangle(target, mmr.maxLoc, new Point(mmr.maxLoc.x + templatW, mmr.maxLoc.y + templatH), new Scalar(0, 255, 0), 2);
             Log.e(">>>>", "匹配的值：" + mmr.maxVal + "   ------坐标：" + mmr.maxLoc.x + "," + mmr.maxLoc.y);
             //
+            //将结果输出到对应位置
+            Imgcodecs.imwrite(fileName, target);
             return new Rect((int) mmr.maxLoc.x, (int) mmr.maxLoc.y, (int) mmr.maxLoc.x + templatW, (int) mmr.maxLoc.y + templatH);
         }
         return null;

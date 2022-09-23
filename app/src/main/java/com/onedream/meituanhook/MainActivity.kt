@@ -10,8 +10,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils
@@ -27,11 +25,11 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (!OpenCVLoader.initDebug()) {
             Log.i(
-                "cv",
+                "ATU cv",
                 "Internal OpenCV library not found. Using OpenCV Manager for initialization"
             )
         } else {
-            Log.i("cv", "OpenCV library found inside package. Using it!")
+            Log.i("ATU cv", "OpenCV library found inside package. Using it!")
         }
     }
 
@@ -40,15 +38,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //
         findViewById<Button>(R.id.btn_jump_to_settings).setOnClickListener {
-            if(isHasCaptureScreenPermission()){
+            if (isHasCaptureScreenPermission()) {
                 this.jumpToAccessibilitySetting()
             }
         }
-        findViewById<TextView>(R.id.btn_test).setOnClickListener {
-            Toast.makeText(this, "I'm clicked", Toast.LENGTH_SHORT).show()
-            CaptureScreenService.start(this)
-        }
-
 
         findViewById<Button>(R.id.but).setOnClickListener(View.OnClickListener { //intent可以应用于广播和发起意图，其中属性有：ComponentName,action,data等
             val intent = Intent()
@@ -57,8 +50,9 @@ class MainActivity : AppCompatActivity() {
             //类型的内容给你选择
             intent.action = Intent.ACTION_GET_CONTENT
             //如果第二个参数大于或等于0，那么当用户操作完成后会返回到本程序的onActivityResult方法
-            startActivityForResult(intent, 1)
+            startActivityForResult(intent, GET_IMAGE_INTENT_REQUEST_CODE)
         })
+
         findViewById<Button>(R.id.use).setOnClickListener(View.OnClickListener {
             //小图
             val bit = bitmap!!.copy(Bitmap.Config.ARGB_8888, false)
@@ -69,36 +63,29 @@ class MainActivity : AppCompatActivity() {
             val target = Mat(bit2.height, bit2.width, CvType.CV_32FC1)
             Utils.bitmapToMat(bit2, target)
             //
+            val resultPicturePath =
+                Environment.getExternalStorageDirectory().path + "/Pictures/result.jpg"
             ClickPointHelper.testClickRect = ImageHelper.singleMatching(
                 source,
                 target,
                 0.8f,
-                Environment.getExternalStorageDirectory().path + "/Pictures/result.jpg"
+                resultPicturePath
             )
-            Log.e("ATU", "路径为" +  Environment.getExternalStorageDirectory().path + "/Pictures/result.jpg")
-            /* Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY);
-                    Utils.matToBitmap(src, bitmap);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            img.setImageBitmap(bitmap);
-                        }
-                    });*/
-            //
+            Log.e("ATU", "路径为$resultPicturePath")
         })
     }
 
 
     private fun isHasCaptureScreenPermission(): Boolean {
         val mMediaProjectionManager =
-            application.getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+            getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
         CaptureScreenService.setMediaProjectionManager(mMediaProjectionManager)
-        return if (CaptureScreenService.getIntent() != null && CaptureScreenService.getResult() !== 0) {
+        return if (CaptureScreenService.getIntent() != null && CaptureScreenService.getIntentResultCode() !== 0) {
             true
         } else {
             startActivityForResult(
                 mMediaProjectionManager.createScreenCaptureIntent(),
-                20001
+                SCREEN_CAPTURE_INTENT_REQUEST_CODE
             )
             CaptureScreenService.setMediaProjectionManager(mMediaProjectionManager)
             false
@@ -106,12 +93,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        //用户操作完成，结果码返回是-1，即RESULT_OK
-        if (resultCode == RESULT_OK && requestCode == 1) {
-            //获取选中文件的定位符
-            data?.let {
+        when (requestCode) {
+            GET_IMAGE_INTENT_REQUEST_CODE -> {
+                if (resultCode != RESULT_OK) {
+                    Log.e("ATU", "获取本地图片请求操作的返回码错误")
+                    return
+                }
+                if (null == data) {
+                    Log.e("ATU", "获取本地图片请求操作的返回数据为空")
+                    return
+                }
                 val uri = data.data
-                Log.e("uri", uri.toString())
+                Log.e("ATU 获取本地图片请求操作的图片uri", uri.toString())
                 //使用content的接口
                 val cr = this.contentResolver
                 try {
@@ -124,18 +117,32 @@ class MainActivity : AppCompatActivity() {
                         findViewById<ImageView>(R.id.img_big)!!.setImageBitmap(bitmap2)
                     }
                 } catch (e: FileNotFoundException) {
-                    Log.e("Exception", e.message, e)
+                    Log.e("获取本地图片请求操作的Exception", e.message, e)
                 }
             }
 
+            SCREEN_CAPTURE_INTENT_REQUEST_CODE -> {
+                if (resultCode != RESULT_OK) {
+                    Log.e("ATU", "截屏权限请求操作的返回码错误")
+                    return
+                }
+                if (null == data) {
+                    Log.e("ATU", "截屏权限请求操作的返回数据为空")
+                    return
+                }
+                CaptureScreenService.setIntentResultCode(resultCode)
+                CaptureScreenService.setIntent(data)
+                //
+                this.jumpToAccessibilitySetting()
+            }
         }
 
-        if (requestCode == 20001 && resultCode == RESULT_OK && data != null) {
-            CaptureScreenService.setResult(resultCode)
-            CaptureScreenService.setIntent(data)
-            //
-            this.jumpToAccessibilitySetting()
-        }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+
+    companion object {
+        private const val SCREEN_CAPTURE_INTENT_REQUEST_CODE = 20001//截屏权限请求码
+        private const val GET_IMAGE_INTENT_REQUEST_CODE = 1//获取图片请求码
     }
 }

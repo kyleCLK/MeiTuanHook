@@ -31,8 +31,9 @@ class MyAccessibilityService : AccessibilityService() {
         super.onServiceConnected()
         Log.e("ATU", "onServiceConnected")
         thread {
-            for(i in 0..30000){
-                Thread.sleep(5000)
+            Thread.sleep(5000)
+            //
+           while (true){
                 //click(622f, 406f)
                 //swipe(200f, 0f, 200f, 2000f, 600)
                 manualCaptureScreenAndClick()
@@ -46,10 +47,14 @@ class MyAccessibilityService : AccessibilityService() {
             Log.e("ATU","不为空")
             click(ClickPointHelper.testClickRect!!.exactCenterX(), ClickPointHelper.testClickRect!!.exactCenterY(), 10)
         }
+        Thread.sleep(5000)
     }
 
 
     private fun autoCaptureScreenAndClick(){
+        if(null != ClickPointHelper.testClickRect){
+            return
+        }
         CaptureScreenService.start(this)
         Thread.sleep(5000)
         val smallImage =  Environment.getExternalStorageDirectory().path + "/Pictures/button.jpg"
@@ -81,5 +86,6 @@ class MyAccessibilityService : AccessibilityService() {
                 click(rect.exactCenterX(),rect.exactCenterY(), 10)
             }
         }
+        Thread.sleep(5000)
     }
 }

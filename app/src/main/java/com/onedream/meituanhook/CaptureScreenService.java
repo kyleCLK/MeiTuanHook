@@ -34,12 +34,12 @@ public class CaptureScreenService extends Service {
     private int windowHeight = 0;
     private ImageReader mImageReader = null;
     private int mScreenDensity = 0;
-    private static int result;
+    private static int intentResultCode;
     private static Intent intent;
     private static MediaProjectionManager mMediaProjectionManager;
 
-    public static int getResult() {
-        return result;
+    public static int getIntentResultCode() {
+        return intentResultCode;
     }
 
     public static Intent getIntent() {
@@ -50,8 +50,8 @@ public class CaptureScreenService extends Service {
         return mMediaProjectionManager;
     }
 
-    public static void setResult(int result1) {
-        result = result1;
+    public static void setIntentResultCode(int result1) {
+        intentResultCode = result1;
     }
 
     public static void setIntent(Intent intent1) {
@@ -132,7 +132,7 @@ public class CaptureScreenService extends Service {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void setUpMediaProjection() {
-        mMediaProjection = mMediaProjectionManager.getMediaProjection(result, getIntent());
+        mMediaProjection = mMediaProjectionManager.getMediaProjection(intentResultCode, getIntent());
         Log.i(TAG, "mMediaProjection defined");
     }
 
