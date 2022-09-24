@@ -1,11 +1,13 @@
-package com.onedream.meituanhook
+package com.onedream.meituanhook.accessibility
 
 import android.accessibilityservice.AccessibilityService
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.Environment
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import com.onedream.meituanhook.ClickPointHelper
+import com.onedream.meituanhook.image.CaptureScreenService
+import com.onedream.meituanhook.image.ImageConfigureHelper
+import com.onedream.meituanhook.image.ImageOpenCVHelper
 import org.opencv.android.Utils
 import org.opencv.core.CvType
 import org.opencv.core.Mat
@@ -57,30 +59,28 @@ class MyAccessibilityService : AccessibilityService() {
         }
         CaptureScreenService.start(this)
         Thread.sleep(5000)
-        val smallImage =  Environment.getExternalStorageDirectory().path + "/Pictures/button.jpg"
-        val nameImage = Environment.getExternalStorageDirectory().path + "/Pictures/current_screen.png"
-        Log.e("ATU", "获取按钮图片存储位置为$smallImage")
-        Log.e("ATU", "获取图片存储位置为$nameImage")
+        val buttonImage =  ImageConfigureHelper.getButtonPicturePath()
+        val currentScreenImage = ImageConfigureHelper.getCurrentScreenPicturePath()
         //
-        val smallFileImage = File(smallImage)
-        val fileImage = File(nameImage)
-        if (smallFileImage.exists() && fileImage.exists()) {
+        val buttonImageFile = File(buttonImage)
+        val currentScreenImageFile = File(currentScreenImage)
+        if (buttonImageFile.exists() && currentScreenImageFile.exists()) {
             //小图
-            val bit  = BitmapFactory.decodeStream(smallFileImage.inputStream())
-            val source = Mat(bit.height, bit.width, CvType.CV_32FC1)
-            Utils.bitmapToMat(bit, source)
+            val buttonBitmap  = BitmapFactory.decodeStream(buttonImageFile.inputStream())
+            val source = Mat(buttonBitmap.height, buttonBitmap.width, CvType.CV_32FC1)
+            Utils.bitmapToMat(buttonBitmap, source)
             //
-            val screenBitmap = BitmapFactory.decodeStream(fileImage.inputStream())
+            val screenBitmap = BitmapFactory.decodeStream(currentScreenImageFile.inputStream())
             val target = Mat(screenBitmap.height, screenBitmap.width, CvType.CV_32FC1)
             Utils.bitmapToMat(screenBitmap, target)
             //
-            val rect = ImageHelper.singleMatching(
+            val resultPicturePath = ImageConfigureHelper.getResultPicturePath()
+            val rect = ImageOpenCVHelper.singleMatching(
                 source,
                 target,
                 0.8f,
-                Environment.getExternalStorageDirectory().path + "/Pictures/result.jpg"
+                resultPicturePath
             )
-            Log.e("ATU", "路径为" + Environment.getExternalStorageDirectory().path + "/Pictures/result.jpg")
             if(null != rect){
                 Log.e("ATU","不为空 点击坐标为x="+ rect.exactCenterX()+"====y="+rect.exactCenterY())
                 click(rect.exactCenterX(),rect.exactCenterY(), 10)

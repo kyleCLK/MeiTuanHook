@@ -22,7 +22,7 @@
         </activity>
 
         <service
-            android:name=".MyAccessibilityService"
+            android:name=".accessibility.MyAccessibilityService"
             android:description="@string/description_in_manifest"
             android:exported="true"
             android:label="@string/label_in_manifest"
@@ -35,7 +35,7 @@
                 android:resource="@xml/accessibility_config"/>
         </service>
 
-        <service android:name=".CaptureScreenService"/>
+        <service android:name=".image.CaptureScreenService"/>
     </application>
 
 </manifest>

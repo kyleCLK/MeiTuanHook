@@ -1,7 +1,9 @@
-package com.onedream.meituanhook;
+package com.onedream.meituanhook.image;
 
 import android.graphics.Rect;
 import android.util.Log;
+
+import com.onedream.meituanhook.ClickPointHelper;
 
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
@@ -12,13 +14,13 @@ import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-public class ImageHelper {
+public class ImageOpenCVHelper {
 
     public static Rect singleMatching(Mat source, Mat target, float matching, String fileName) {
         //模板图片
         Mat clone = target.clone();
         if (source.empty() || target.empty()) {
-            Log.e(">>>>", "资源为null");
+            printLog( "资源为null");
             return null;
         }
         int templatW, templatH, resultH, resultW;
@@ -35,7 +37,7 @@ public class ImageHelper {
         if (mmr.maxVal > matching) {
             //在原图上的对应模板可能位置画一个绿色矩形
             Imgproc.rectangle(target, mmr.maxLoc, new Point(mmr.maxLoc.x + templatW, mmr.maxLoc.y + templatH), new Scalar(0, 255, 0), 2);
-            Log.e(">>>>", "匹配的值：" + mmr.maxVal + "   ------坐标：" + mmr.maxLoc.x + "," + mmr.maxLoc.y);
+            printLog("匹配的值：" + mmr.maxVal + "   ------坐标：" + mmr.maxLoc.x + "," + mmr.maxLoc.y);
             //
             //将结果输出到对应位置
             Imgcodecs.imwrite(fileName, target);
@@ -57,7 +59,7 @@ public class ImageHelper {
         //模板图片
         Mat clone = target.clone();
         if (source.empty() || target.empty()) {
-            Log.e(">>>>", "资源为null");
+            printLog( "资源为null");
             return target;
         }
         int templatW, templatH, resultH, resultW;
@@ -74,7 +76,7 @@ public class ImageHelper {
         if (mmr.maxVal > matching) {
             //在原图上的对应模板可能位置画一个绿色矩形
             Imgproc.rectangle(target, mmr.maxLoc, new Point(mmr.maxLoc.x + templatW, mmr.maxLoc.y + templatH), new Scalar(0, 255, 0), 2);
-            Log.e(">>>>", "匹配的值：" + mmr.maxVal + "   ------坐标：" + mmr.maxLoc.x + "," + mmr.maxLoc.y);
+            printLog( "匹配的值：" + mmr.maxVal + "   ------坐标：" + mmr.maxLoc.x + "," + mmr.maxLoc.y);
             //
             ClickPointHelper.INSTANCE.setTestClickRect(new Rect((int)mmr.maxLoc.x,(int) mmr.maxLoc.y, (int)mmr.maxLoc.x + templatW, (int)mmr.maxLoc.y + templatH));
         }
@@ -88,7 +90,7 @@ public class ImageHelper {
                 //画一个绿色的矩形
                 Imgproc.rectangle(target, mmr.maxLoc, new Point(mmr.maxLoc.x + templatW, mmr.maxLoc.y + templatH), new Scalar(0, 255, 0), 2);
                 Imgproc.putText(target, "" + count, new Point(mmr.maxLoc.x, mmr.maxLoc.y), 1, 3, new Scalar(0, 255, 0), 2);
-                Log.e(">>>>", "匹配的值：" + mmr.maxVal + "   ------坐标：" + mmr.maxLoc.x + "," + mmr.maxLoc.y);
+                printLog("匹配的值：" + mmr.maxVal + "   ------坐标：" + mmr.maxLoc.x + "," + mmr.maxLoc.y);
             } else {
                 break;
             }
@@ -137,5 +139,10 @@ public class ImageHelper {
         Imgproc.matchTemplate(clone, result, result2, Imgproc.TM_CCOEFF_NORMED);   //是标准相关性系数匹配  值越大越匹配
         //查找result中的最大值 及其所在坐标
         return Core.minMaxLoc(result2);
+    }
+
+
+    private static void printLog(String message){
+        Log.e("ATU ImageOpenCVHelper", message+"");
     }
 }

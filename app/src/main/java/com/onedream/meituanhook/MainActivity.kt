@@ -5,12 +5,15 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.projection.MediaProjectionManager
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.onedream.meituanhook.accessibility.jumpToAccessibilitySetting
+import com.onedream.meituanhook.image.CaptureScreenService
+import com.onedream.meituanhook.image.ImageConfigureHelper
+import com.onedream.meituanhook.image.ImageOpenCVHelper
 import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils
 import org.opencv.core.CvType
@@ -63,15 +66,14 @@ class MainActivity : AppCompatActivity() {
             val target = Mat(bit2.height, bit2.width, CvType.CV_32FC1)
             Utils.bitmapToMat(bit2, target)
             //
-            val resultPicturePath =
-                Environment.getExternalStorageDirectory().path + "/Pictures/result.jpg"
-            ClickPointHelper.testClickRect = ImageHelper.singleMatching(
+            val resultPicturePath = ImageConfigureHelper.getResultPicturePath()
+
+            ClickPointHelper.testClickRect = ImageOpenCVHelper.singleMatching(
                 source,
                 target,
                 0.8f,
                 resultPicturePath
             )
-            Log.e("ATU", "路径为$resultPicturePath")
         })
     }
 
@@ -117,7 +119,7 @@ class MainActivity : AppCompatActivity() {
                         findViewById<ImageView>(R.id.img_big)!!.setImageBitmap(bitmap2)
                     }
                 } catch (e: FileNotFoundException) {
-                    Log.e("获取本地图片请求操作的Exception", e.message, e)
+                    Log.e("ATU 获取本地图片请求操作的Exception", e.message, e)
                 }
             }
 

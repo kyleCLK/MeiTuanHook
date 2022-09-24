@@ -1,4 +1,4 @@
-package com.onedream.meituanhook
+package com.onedream.meituanhook.accessibility
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.GestureDescription
@@ -30,12 +30,12 @@ fun AccessibilityService.gesture(x: Float, y: Float, xOffset : Float, yOffset :F
 }
 
 fun AccessibilityService.click(x: Float, y: Float, duration : Long) {
-    Log.d("ATU", "click: ($x, $y)")
+    Log.e("ATU", "start click event: ($x, $y)")
     this.gesture( x, y, 0.0f, 0.0f, duration)
 }
 
 fun AccessibilityService.swipe(x: Float, y: Float, xOffset : Float, yOffset :Float, duration : Long) {
-    Log.d("ATU", "swipe: ($x, $y) to (${x + xOffset}, ${y + yOffset})")
+    Log.e("ATU", "start swipe event: ($x, $y) to (${x + xOffset}, ${y + yOffset})")
     this.gesture(x, y, xOffset, yOffset, duration)
 }
 

@@ -1,4 +1,4 @@
-package com.onedream.meituanhook;
+package com.onedream.meituanhook.image;
 
 import android.annotation.TargetApi;
 import android.app.Service;
@@ -114,17 +114,17 @@ public class CaptureScreenService extends Service {
         //
         mImageReader = ImageReader.newInstance(windowWidth, windowHeight, 0x1, 2); //ImageFormat.RGB_565
 
-        Log.i(TAG, "prepared the virtual environment");
+        printLog("prepared the virtual environment");
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void startVirtual() {
         if (mMediaProjection != null) {
-            Log.i(TAG, "want to display virtual");
+            printLog("want to display virtual");
             virtualDisplay();
         } else {
-            Log.i(TAG, "start screen capture intent");
-            Log.i(TAG, "want to build mediaprojection and display virtual");
+            printLog("start screen capture intent");
+            printLog( "want to build mediaprojection and display virtual");
             setUpMediaProjection();
             virtualDisplay();
         }
@@ -133,7 +133,7 @@ public class CaptureScreenService extends Service {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void setUpMediaProjection() {
         mMediaProjection = mMediaProjectionManager.getMediaProjection(intentResultCode, getIntent());
-        Log.i(TAG, "mMediaProjection defined");
+        printLog( "mMediaProjection defined");
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -141,13 +141,13 @@ public class CaptureScreenService extends Service {
         mVirtualDisplay = mMediaProjection.createVirtualDisplay("screen-mirror",
                 windowWidth, windowHeight, mScreenDensity, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                 mImageReader.getSurface(), null, null);
-        Log.i(TAG, "virtual displayed");
+        printLog("virtual displayed");
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void startCapture() {
         String nameImage = Environment.getExternalStorageDirectory().getPath() + "/Pictures/current_screen.png";
-        Log.e("ATU", "图片存储位置为" + nameImage);
+        printLog( "图片存储位置为" + nameImage);
 
         Image image = mImageReader.acquireLatestImage();
         int width = image.getWidth();
@@ -161,14 +161,14 @@ public class CaptureScreenService extends Service {
         bitmap.copyPixelsFromBuffer(buffer);
         bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height);
         image.close();
-        Log.i(TAG, "image data captured");
+        printLog("image data captured");
 
         if (bitmap != null) {
             try {
                 File fileImage = new File(nameImage);
                 if (!fileImage.exists()) {
                     fileImage.createNewFile();
-                    Log.i(TAG, "image file created");
+                    printLog("image file created");
                 }
                 FileOutputStream out = new FileOutputStream(fileImage);
                 if (out != null) {
@@ -179,12 +179,14 @@ public class CaptureScreenService extends Service {
                     Uri contentUri = Uri.fromFile(fileImage);
                     media.setData(contentUri);
                     this.sendBroadcast(media);
-                    Log.i(TAG, "screen image saved");
+                    printLog("screen image saved");
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                printLog("screen image FileNotFoundException=" +e.toString());
             } catch (IOException e) {
                 e.printStackTrace();
+                printLog("screen image IOException=" +e.toString());
             }
         }
     }
@@ -195,7 +197,7 @@ public class CaptureScreenService extends Service {
         }
         mVirtualDisplay.release();
         mVirtualDisplay = null;
-        Log.i(TAG, "virtual display stopped");
+        printLog( "virtual display stopped");
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -204,7 +206,7 @@ public class CaptureScreenService extends Service {
             mMediaProjection.stop();
             mMediaProjection = null;
         }
-        Log.i(TAG, "mMediaProjection undefined");
+        printLog("mMediaProjection undefined");
     }
 
 
@@ -212,5 +214,10 @@ public class CaptureScreenService extends Service {
     public void onDestroy() {
         super.onDestroy();
         tearDownMediaProjection();
+    }
+
+
+    private void printLog(String message){
+        Log.e("ATU capture", message+"");
     }
 }
