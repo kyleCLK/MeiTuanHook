@@ -74,7 +74,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="不导入button.jpg的话，点击【手动导入】，先后选择按钮，和所在界面的截屏，然后点击【生成识别区域的截图】
-        到Pictures目录下查看result.jpg图片，按钮周围是否有绿色的方框，有的话，继续点击上面【开启】按钮" />
+        到Android/data/com.onedream.meituanhook/files/Pictures/目录下查看result.jpg图片，按钮周围是否有绿色的方框，有的话，继续点击上面【开启】按钮" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -18,10 +18,7 @@ class MyAccessibilityService : AccessibilityService() {
     override fun onAccessibilityEvent(accessibilityEvent: AccessibilityEvent?) {
         Log.e("ATU", "onAccessibilityEvent")
         accessibilityEvent?.let {
-            Log.e(
-                "ATU",
-                "onAccessibilityEvent= ${it.packageName} ${it.action} ${it.className.toString()}"
-            )
+            Log.e("ATU", "onAccessibilityEvent= $it")
         }
     }
 
@@ -49,7 +46,7 @@ class MyAccessibilityService : AccessibilityService() {
             Log.e("ATU","不为空")
             click(ClickPointHelper.testClickRect!!.exactCenterX(), ClickPointHelper.testClickRect!!.exactCenterY(), 10)
         }
-        Thread.sleep(5000)
+        Thread.sleep(2000)
     }
 
 
@@ -58,7 +55,7 @@ class MyAccessibilityService : AccessibilityService() {
             return
         }
         CaptureScreenService.start(this)
-        Thread.sleep(5000)
+        Thread.sleep(2000)
         val buttonImage =  ImageConfigureHelper.getButtonPicturePath()
         val currentScreenImage = ImageConfigureHelper.getCurrentScreenPicturePath()
         //
@@ -86,6 +83,6 @@ class MyAccessibilityService : AccessibilityService() {
                 click(rect.exactCenterX(),rect.exactCenterY(), 10)
             }
         }
-        Thread.sleep(5000)
+        Thread.sleep(2000)
     }
 }

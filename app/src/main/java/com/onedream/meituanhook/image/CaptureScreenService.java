@@ -150,9 +150,6 @@ public class CaptureScreenService extends Service {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void startCapture() {
-        String nameImage = Environment.getExternalStorageDirectory().getPath() + "/Pictures/current_screen.png";
-        printLog( "图片存储位置为" + nameImage);
-
         Image image = mImageReader.acquireLatestImage();
         int width = image.getWidth();
         int height = image.getHeight();
@@ -169,6 +166,7 @@ public class CaptureScreenService extends Service {
 
         if (bitmap != null) {
             try {
+                String nameImage = ImageConfigureHelper.INSTANCE.getCurrentScreenPicturePath();
                 File fileImage = new File(nameImage);
                 if (!fileImage.exists()) {
                     fileImage.createNewFile();

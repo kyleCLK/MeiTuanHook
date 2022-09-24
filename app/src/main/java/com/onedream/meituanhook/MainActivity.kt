@@ -86,13 +86,17 @@ class MainActivity : AppCompatActivity() {
             Utils.bitmapToMat(bit2, target)
             //
             val resultPicturePath = ImageConfigureHelper.getResultPicturePath()
-
             ClickPointHelper.testClickRect = ImageOpenCVHelper.singleMatching(
                 source,
                 target,
                 0.8f,
                 resultPicturePath
             )
+            if(null != ClickPointHelper.testClickRect){
+                Toast.makeText(this, "识别到按钮的区域！！",Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "错误！！识别不到按钮的区域！！",Toast.LENGTH_SHORT).show()
+            }
         })
     }
 
@@ -143,7 +147,6 @@ class MainActivity : AppCompatActivity() {
                 mMediaProjectionManager.createScreenCaptureIntent(),
                 SCREEN_CAPTURE_INTENT_REQUEST_CODE
             )
-            CaptureScreenService.setMediaProjectionManager(mMediaProjectionManager)
             false
         }
     }
