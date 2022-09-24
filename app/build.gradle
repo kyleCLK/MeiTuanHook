@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -62,4 +63,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //
     implementation project(path: ':openCVLibrary343')
+    //
+    //mmkv
+    implementation 'com.tencent:mmkv:1.0.23'
 }

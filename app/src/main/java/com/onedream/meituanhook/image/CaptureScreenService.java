@@ -20,6 +20,8 @@ import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.onedream.meituanhook.shared_preferences.ScreenLocalStorage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -110,7 +112,9 @@ public class CaptureScreenService extends Service {
         DisplayMetrics dm = resources.getDisplayMetrics();
         mScreenDensity = (int) dm.density;
         windowWidth = dm.widthPixels;
-        windowHeight = 2160;//todo 这里的高度需要校正
+        windowHeight = ScreenLocalStorage.getScreenHeight(dm.heightPixels);//todo 这里的高度需要校正
+        //
+        printLog("校准后的高度为"+windowHeight);
         //
         mImageReader = ImageReader.newInstance(windowWidth, windowHeight, 0x1, 2); //ImageFormat.RGB_565
 
