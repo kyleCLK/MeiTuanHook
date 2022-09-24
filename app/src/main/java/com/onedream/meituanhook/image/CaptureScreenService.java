@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
@@ -14,12 +13,12 @@ import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.onedream.meituanhook.system.ScreenHelper;
 import com.onedream.meituanhook.shared_preferences.ScreenLocalStorage;
 
 import java.io.File;
@@ -108,8 +107,7 @@ public class CaptureScreenService extends Service {
     }
 
     private void createVirtualEnvironment() {
-        Resources resources = this.getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
+        DisplayMetrics dm = ScreenHelper.INSTANCE.getDisplayMetrics(this);
         mScreenDensity = (int) dm.density;
         windowWidth = dm.widthPixels;
         windowHeight = ScreenLocalStorage.getScreenHeight(dm.heightPixels);//todo 这里的高度需要校正

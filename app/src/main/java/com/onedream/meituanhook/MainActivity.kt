@@ -15,6 +15,7 @@ import com.onedream.meituanhook.image.ImageConfigureHelper
 import com.onedream.meituanhook.image.ImageOpenCVHelper
 import com.onedream.meituanhook.permission.PermissionHelper
 import com.onedream.meituanhook.shared_preferences.ScreenLocalStorage
+import com.onedream.meituanhook.system.ScreenHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils
@@ -92,18 +93,19 @@ class MainActivity : AppCompatActivity() {
                 0.8f,
                 resultPicturePath
             )
-            if(null != ClickPointHelper.testClickRect){
-                Toast.makeText(this, "识别到按钮的区域！！",Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(this, "错误！！识别不到按钮的区域！！",Toast.LENGTH_SHORT).show()
+            if (null != ClickPointHelper.testClickRect) {
+                Toast.makeText(this, "识别到按钮的区域！！", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "错误！！识别不到按钮的区域！！", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
     private fun showScreenHeight() {
-        val resources = this.resources
-        val dm = resources.displayMetrics
-        edit_abc.setText(ScreenLocalStorage.getScreenHeight(dm.heightPixels).toString())
+        edit_abc.setText(
+            ScreenLocalStorage.getScreenHeight(ScreenHelper.getDisplayMetrics(this).heightPixels)
+                .toString()
+        )
         changeScreenHeightEditText(false)
     }
 
